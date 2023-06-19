@@ -19,18 +19,22 @@ public class AI : Agent {
 
     protected Transform _modelTs;
 
+    private Transform _stage;
+
     public override void Initialize() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _modelTs = transform.Find("Model");
+        _stage = transform.parent;
     }
 
     public override void OnEpisodeBegin() {
-        transform.position = new Vector2(Random.Range(-10f, 10f), Random.Range(-5f, 5f));
+        transform.position = (Vector2)_stage.position + new Vector2(Random.Range(-10f, 10f), Random.Range(-5f, 5f));
     }
 
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(transform.position);
         sensor.AddObservation(_rigidbody.velocity);
+        sensor.AddObservation(_target != null ? (Vector2)_target.transform.position : Vector2.zero);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -44,26 +48,25 @@ public class AI : Agent {
 
         _target = GetClosestTarget();
         if (_target == null) {
-            SetReward(-0.1f);
+            AddReward(-0.1f);
             return;
         }
 
         Vector2 direction = _target.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        _modelTs.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        _modelTs.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _attackRange);
         foreach (Collider2D collider in colliders) {
             if (collider.gameObject == _target) {
-                // Attack
-                Attack(_target);
+                // Attack(_target);
                 break;
             }
         }
 
         float distanceToTarget = Vector2.Distance(transform.position, _target.transform.position);
         if (distanceToTarget < 1.5f) {
-            SetReward(5f);
+            AddReward(5f);
             EndEpisode();
         }
     }
