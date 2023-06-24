@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class LongSwordAI : AI {
     protected override void Attack(GameObject target) {
-        SetReward(3f);
-        //target.GetComponent<HealthSystem>().Damage(DamageAmount);
-        //target.GetComponent<AI>().SetReward(-1f);
+        if (!IsAttack())
+            return;
+
+        base.Attack(target);
+
+        StartCoroutine(AttackDelay(0.2f, 0.4f));
     }
 }

@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LongSword
+  m_Name: Bow
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attack
@@ -40,7 +40,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -75,7 +75,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d14d4511596fa4e4db6cdff6cd8df743, type: 2}
+  m_Motion: {fileID: 7400000, guid: d1591c3a5a39be94c9a5f35b8ebfa6e1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -148,7 +148,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b90d6ebb402bf0c408b0df598163f886, type: 2}
+  m_Motion: {fileID: 7400000, guid: dc3a2fa6eece44d4b97d602a12ecdb2a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour {
-
-
     public float Health => _health;
     public float MaxHealth => _maxHealth;
 
-    private float _health;
+    [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
 
     public void Init() {
@@ -26,5 +24,8 @@ public class HealthSystem : MonoBehaviour {
     public void Die() {
         // Die
         Debug.Log("Die");
+        AI ai = transform.GetComponentInParent<AI>();
+        if (ai != null)
+            Destroy(ai.gameObject);
     }
 }
