@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageAmount: 8
   _speed: 10
+  Blood: {fileID: 2787787663086666575, guid: 9508fbea745d31846b2fda4a5608514b, type: 3}
 --- !u!61 &1087830987314570972
 BoxCollider2D:
   m_ObjectHideFlags: 0

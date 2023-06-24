@@ -50,3 +50,6 @@ TagManager:
   - name: Hand
     uniqueID: 2172464811
     locked: 0
+  - name: Effect
+    uniqueID: 2960181387
+    locked: 0

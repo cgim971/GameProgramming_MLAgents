@@ -1302,6 +1302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageAmount: 10
+  Blood: {fileID: 2787787663086666575, guid: 9508fbea745d31846b2fda4a5608514b, type: 3}
 --- !u!61 &1995876240
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1475,5 +1476,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: _LongSword
       objectReference: {fileID: 0}
+    - target: {fileID: 7019561860665024892, guid: dae7639acfa38e24989f8a67da8d0866, type: 3}
+      propertyPath: Blood
+      value: 
+      objectReference: {fileID: 2787787663086666575, guid: 9508fbea745d31846b2fda4a5608514b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dae7639acfa38e24989f8a67da8d0866, type: 3}

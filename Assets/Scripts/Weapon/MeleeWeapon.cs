@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeleeWeapon : MonoBehaviour {
     public float DamageAmount;
     private AI _ai;
+    public GameObject Blood;
 
     private void Start() {
         _ai = GetComponentInParent<AI>();
@@ -20,6 +21,14 @@ public class MeleeWeapon : MonoBehaviour {
 
             AI ai = other.GetComponent<AI>();
             ai?.SetReward(-1f);
+
+            // Effect
+            GameObject effect = Instantiate(Blood, null);
+
+            Vector2 closestPoint = other.ClosestPoint(transform.position);
+            effect.transform.position = closestPoint;
+
+            Destroy(effect, 1.1f);
         }
     }
 }

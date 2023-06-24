@@ -9,6 +9,8 @@ public class Arrow : MonoBehaviour {
     private Rigidbody2D _rigidbody;
     [SerializeField] private float _speed;
 
+    public GameObject Blood;
+
     public void Init(AI ai, Vector2 pos, Vector2 dir) {
         _ai = ai;
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -32,6 +34,14 @@ public class Arrow : MonoBehaviour {
 
             AI ai = other.GetComponent<AI>();
             ai?.SetReward(-1f);
+
+            // Effect
+            GameObject effect = Instantiate(Blood, null);
+
+            Vector2 closestPoint = other.ClosestPoint(transform.position);
+            effect.transform.position = closestPoint;
+
+            Destroy(effect, 1.1f);
 
             Destroy(this.gameObject);
         }
