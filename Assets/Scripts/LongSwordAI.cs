@@ -12,6 +12,6 @@ public class LongSwordAI : AI {
 
         base.Attack(target);
 
-        StartCoroutine(AttackDelay(0.2f, 0.4f));
+        StartCoroutine(AttackDelay(0.1f, 0.3f));
     }
 }

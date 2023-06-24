@@ -24,6 +24,8 @@ public class AI : Agent, IDamage {
     protected Transform _modelTs;
     private Transform _stage;
 
+    public bool IsKnockback = false;
+
     public override void Initialize() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _healthSystem = GetComponentInChildren<HealthSystem>();
@@ -50,8 +52,10 @@ public class AI : Agent, IDamage {
         float x = action[0];
         float y = action[1];
 
-        Vector2 movement = new Vector2(x, y).normalized;
-        _rigidbody.velocity = movement * _moveSpeed;
+        if (IsKnockback == false) {
+            Vector2 movement = new Vector2(x, y).normalized;
+            _rigidbody.velocity = movement * _moveSpeed;
+        }
 
         _target = GetClosestTarget();
         if (_target == null) {
@@ -75,7 +79,7 @@ public class AI : Agent, IDamage {
         if (distanceToTarget < 1.5f) {
             AddReward(2f);
             // 이동 훈련할 때만 사용
-            // EndEpisode();
+            //EndEpisode();
         }
     }
 

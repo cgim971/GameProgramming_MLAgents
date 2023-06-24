@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3736063329993808486}
   - component: {fileID: 3736063329993808487}
   - component: {fileID: 3736063329993808472}
-  - component: {fileID: 3736063329993808474}
+  - component: {fileID: 304305104723577870}
   m_Layer: 0
   m_Name: LongSword
   m_TagString: Untagged
@@ -165,7 +165,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8316038, y: 1.998348}
   m_EdgeRadius: 0
---- !u!114 &3736063329993808474
+--- !u!114 &304305104723577870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +174,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3736063329993808485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 847e893b9940e6c41b9a64d259eb62ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 14a080e5bddf788459abfdd6a5730243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageAmount: 10
+  Blood: {fileID: 2787787663086666575, guid: 9508fbea745d31846b2fda4a5608514b, type: 3}
