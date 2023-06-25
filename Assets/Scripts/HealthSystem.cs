@@ -25,7 +25,10 @@ public class HealthSystem : MonoBehaviour {
         // Die
         Debug.Log("Die");
         AI ai = transform.GetComponentInParent<AI>();
-        if (ai != null)
+        if (ai != null) {
+            StageManager.Instance.Die(ai, ai.IsPlayer);
+
             Destroy(ai.gameObject);
+        }
     }
 }

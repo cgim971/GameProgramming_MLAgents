@@ -54,8 +54,12 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 2000
-  _targetList:
-  - {fileID: 0}
+  _targetList: []
+  _moveSpeed: 5
+  _attackRange: 2
+  _goodRange: 0
+  IsKnockback: 0
+  IsPlayer: 0
 --- !u!114 &7019561860083747108
 MonoBehaviour:
   m_ObjectHideFlags: 0

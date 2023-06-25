@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour {
     protected virtual void OnTriggerEnter2D(Collider2D other) {
         IDamage iDamage = other.GetComponent<IDamage>();
         if (iDamage != null) {
-            if (_ai.GetComponent<IDamage>() == iDamage)
+            if (_ai?.GetComponent<IDamage>() == iDamage)
                 return;
 
             iDamage.Damage(DamageAmount);

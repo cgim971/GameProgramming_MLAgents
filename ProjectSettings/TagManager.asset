@@ -53,3 +53,6 @@ TagManager:
   - name: Effect
     uniqueID: 2960181387
     locked: 0
+  - name: HpBar
+    uniqueID: 3128301659
+    locked: 0
