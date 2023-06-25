@@ -10,10 +10,12 @@ public class HealthSystem : MonoBehaviour {
     [SerializeField] private float _maxHealth;
 
     private AI _ai;
+    private Transform _barTransform;
 
     public void Init() {
         _health = MaxHealth;
         _ai = transform.GetComponentInParent<AI>();
+        _barTransform = transform.Find("bar");
     }
 
     public void Damage(float damage) {
@@ -21,6 +23,8 @@ public class HealthSystem : MonoBehaviour {
 
         if (_ai.IsPlayer)
             CameraManager.Instance.ShakeCamera(0.2f, 5f);
+
+        UpdateBar();
 
         if (_health <= 0) {
             Die();
@@ -36,4 +40,10 @@ public class HealthSystem : MonoBehaviour {
             Destroy(_ai.gameObject);
         }
     }
+
+    private void UpdateBar() {
+        _barTransform.localScale = new Vector3(GetHealthAmountNormalized(), 0.2f, 1);
+    }
+
+    public float GetHealthAmountNormalized() => (float)Health / MaxHealth;
 }

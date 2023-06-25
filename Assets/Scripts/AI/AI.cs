@@ -28,6 +28,12 @@ public class AI : Agent, IDamage {
     public bool IsPlayer = false;
     private Camera _mainCam;
 
+    public void Init() {
+        //  캐릭터 색상 변경
+
+
+    }
+
     public override void Initialize() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _healthSystem = GetComponentInChildren<HealthSystem>();
