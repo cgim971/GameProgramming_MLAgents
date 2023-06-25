@@ -15,7 +15,7 @@ public class AI : Agent, IDamage {
     protected Animator _weaponAnim;
     protected GameObject _target;
 
-    protected float _moveSpeed = 5f;
+    [SerializeField] protected float _moveSpeed = 5f;
     [SerializeField] protected float _attackRange = 2f;
     [SerializeField] protected float _goodRange;
 
@@ -25,6 +25,8 @@ public class AI : Agent, IDamage {
     private Transform _stage;
 
     public bool IsKnockback = false;
+    public bool IsPlayer = false;
+    private Camera _mainCam;
 
     public override void Initialize() {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -34,6 +36,8 @@ public class AI : Agent, IDamage {
 
         _modelTs = transform.Find("Model");
         _stage = transform.parent;
+
+        _mainCam = Camera.main;
     }
 
     public override void OnEpisodeBegin() {
@@ -57,14 +61,28 @@ public class AI : Agent, IDamage {
             _rigidbody.velocity = movement * _moveSpeed;
         }
 
+        Vector2 direction = Vector2.zero;
+        float angle = 0f;
+        if (IsPlayer) {
+            Vector2 mousePosition = _mainCam.ScreenToWorldPoint(Input.mousePosition);
+            direction = (mousePosition - (Vector2)transform.position).normalized;
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            _modelTs.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+
+            if (Input.GetMouseButtonDown(0))
+                Attack(mousePosition);
+            return;
+        }
+
         _target = GetClosestTarget();
         if (_target == null) {
             AddReward(-0.1f);
             return;
         }
 
-        Vector2 direction = _target.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        direction = (_target.transform.position - transform.position).normalized;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _modelTs.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _attackRange);
@@ -76,11 +94,20 @@ public class AI : Agent, IDamage {
         }
 
         float distanceToTarget = Vector2.Distance(transform.position, _target.transform.position);
-        if (distanceToTarget < 1.5f) {
-            AddReward(2f);
+        float abs = Mathf.Abs(distanceToTarget - _goodRange);
+        if (abs < 0.5f) {
+            AddReward(50f);
             // 이동 훈련할 때만 사용
-            //EndEpisode();
+            // EndEpisode();
         }
+        else {
+            AddReward(-abs * 0.01f);
+        }
+    }
+
+    public override void Heuristic(in ActionBuffers actionsOut) {
+        actionsOut.ContinuousActions.Array[0] = Input.GetAxisRaw("Horizontal");
+        actionsOut.ContinuousActions.Array[1] = Input.GetAxisRaw("Vertical");
     }
 
     protected bool IsAttack() {
@@ -91,6 +118,12 @@ public class AI : Agent, IDamage {
     }
 
     protected virtual void Attack(GameObject target) {
+        _isAttack = false;
+        _weaponAnim.SetTrigger("Attack");
+        SetReward(2f);
+    }
+
+    protected virtual void Attack(Vector2 pos) {
         _isAttack = false;
         _weaponAnim.SetTrigger("Attack");
         SetReward(2f);
@@ -118,6 +151,11 @@ public class AI : Agent, IDamage {
 
     protected IEnumerator AttackDelay(float min, float max) {
         yield return new WaitForSeconds(Random.Range(min, max));
+        _isAttack = true;
+    }
+
+    protected IEnumerator AttackDelay(float delay) {
+        yield return new WaitForSeconds(delay);
         _isAttack = true;
     }
 }

@@ -14,4 +14,13 @@ public class LongSwordAI : AI {
 
         StartCoroutine(AttackDelay(0.1f, 0.3f));
     }
+
+    protected override void Attack(Vector2 pos) {
+        if (!IsAttack())
+            return;
+
+        base.Attack(pos);
+
+        StartCoroutine(AttackDelay(0.1f));
+    }
 }

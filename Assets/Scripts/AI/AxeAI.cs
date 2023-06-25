@@ -9,6 +9,15 @@ public class AxeAI : AI {
 
         base.Attack(target);
 
-        StartCoroutine(AttackDelay(0.8f, 1.4f));
+        StartCoroutine(AttackDelay(1.4f, 1.8f));
+    }
+
+    protected override void Attack(Vector2 pos) {
+        if (!IsAttack())
+            return;
+
+        base.Attack(pos);
+
+        StartCoroutine(AttackDelay(1f));
     }
 }
