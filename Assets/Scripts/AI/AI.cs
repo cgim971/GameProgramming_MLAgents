@@ -28,12 +28,6 @@ public class AI : Agent, IDamage {
     public bool IsPlayer = false;
     private Camera _mainCam;
 
-    public void Init() {
-        //  캐릭터 색상 변경
-
-
-    }
-
     public override void Initialize() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _healthSystem = GetComponentInChildren<HealthSystem>();
@@ -47,7 +41,7 @@ public class AI : Agent, IDamage {
     }
 
     public override void OnEpisodeBegin() {
-        transform.position = (Vector2)_stage.transform.position + new Vector2(Random.Range(-10f, 10f), Random.Range(-5f, 5f));
+        // transform.position = (Vector2)_stage.transform.position + new Vector2(Random.Range(-10f, 10f), Random.Range(-5f, 5f));
     }
 
     public override void CollectObservations(VectorSensor sensor) {

@@ -15,11 +15,16 @@ public class StageManager : MonoBehaviour {
 
     public bool IsDie = false;
 
+    [SerializeField] private List<Transform> _spawnPointList = new List<Transform>();
+    [SerializeField] private List<Transform> _currentSpawnPointList = new List<Transform>();
 
     private void Awake() {
         if (_instance == null)
             _instance = this;
 
+        _currentSpawnPointList = _spawnPointList;
+
+        // 게임매니저로 옮길 부분
         List<int> aiList = new List<int>();
         aiList.Add(1);
         aiList.Add(2);
@@ -39,6 +44,8 @@ public class StageManager : MonoBehaviour {
             ai.GetComponent<BehaviorParameters>().BehaviorType = BehaviorType.HeuristicOnly;
             CameraManager.Instance.SetFollow(ai.transform);
 
+            ai.transform.position = GetRandomSpawnPoint();
+
             _aiDictionary[index++] = ai;
             _currentAiList.Add(ai);
         }
@@ -48,6 +55,9 @@ public class StageManager : MonoBehaviour {
         for (int i = 0; i < aiList.Count; i++) {
             for (int j = 0; j < aiList[i]; j++) {
                 ai = Instantiate(_aiList[i], transform);
+
+                ai.transform.position = GetRandomSpawnPoint();
+
                 _aiDictionary[index++] = ai;
                 _currentAiList.Add(ai);
             }
@@ -108,5 +118,12 @@ public class StageManager : MonoBehaviour {
         }
 
         CameraManager.Instance.SetFollow(_currentAiList[_index].transform);
+    }
+
+    public Vector2 GetRandomSpawnPoint() {
+        int index = Random.Range(0, _currentSpawnPointList.Count - 1);
+        Vector2 pos = _currentSpawnPointList[index].position;
+        _currentSpawnPointList.RemoveAt(index);
+        return pos;
     }
 }
