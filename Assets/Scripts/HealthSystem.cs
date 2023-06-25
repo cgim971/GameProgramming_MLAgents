@@ -9,12 +9,18 @@ public class HealthSystem : MonoBehaviour {
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
 
+    private AI _ai;
+
     public void Init() {
         _health = MaxHealth;
+        _ai = transform.GetComponentInParent<AI>();
     }
 
     public void Damage(float damage) {
         _health = Mathf.Clamp(_health - damage, 0, _maxHealth);
+
+        if (_ai.IsPlayer)
+            CameraManager.Instance.ShakeCamera(0.2f, 5f);
 
         if (_health <= 0) {
             Die();
@@ -24,11 +30,10 @@ public class HealthSystem : MonoBehaviour {
     public void Die() {
         // Die
         Debug.Log("Die");
-        AI ai = transform.GetComponentInParent<AI>();
-        if (ai != null) {
-            StageManager.Instance.Die(ai, ai.IsPlayer);
+        if (_ai != null) {
+            StageManager.Instance.Die(_ai, _ai.IsPlayer);
 
-            Destroy(ai.gameObject);
+            Destroy(_ai.gameObject);
         }
     }
 }

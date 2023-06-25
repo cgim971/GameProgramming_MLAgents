@@ -9,16 +9,34 @@ public class CameraManager : MonoBehaviour {
 
     private CinemachineVirtualCamera _vCam;
 
+    private float _shakeTimer = 0f;
+    private float _shakeIntensity = 0f;
+
     private void Awake() {
-        if(_instance == null)   
+        if (_instance == null)
             _instance = this;
 
         _vCam = GetComponent<CinemachineVirtualCamera>();
+    }
+
+    private void Update() {
+        if (_shakeTimer > 0f) {
+            // 흔들림 효과 적용
+            _shakeTimer -= Time.deltaTime;
+            if (_shakeTimer <= 0f) {
+                _vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+            }
+        }
     }
 
     public void SetFollow(Transform ts) {
         _vCam.m_Follow = ts;
     }
 
+    public void ShakeCamera(float shakeDuration, float shakeAmplitude) {
+        _shakeTimer = shakeDuration;
+        _shakeIntensity = shakeAmplitude;
 
+        _vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = _shakeIntensity;
+    }
 }

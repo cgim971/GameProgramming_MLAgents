@@ -70,8 +70,10 @@ public class AI : Agent, IDamage {
             _modelTs.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)) {
+                CameraManager.Instance.ShakeCamera(0.1f, 0.3f);
                 Attack(mousePosition);
+            }
             return;
         }
 

@@ -30,14 +30,19 @@ public class StageManager : MonoBehaviour {
     public void Init(int characterIndex, List<int> aiList) {
         int index = 0;
 
-        // 캐릭터 생성
-        AI ai = Instantiate(_aiList[characterIndex], transform);
-        ai.IsPlayer = true;
-        ai.GetComponent<BehaviorParameters>().BehaviorType = BehaviorType.HeuristicOnly;
-        CameraManager.Instance.SetFollow(ai.transform);
+        AI ai = null;
 
-        _aiDictionary[index++] = ai;
-        _currentAiList.Add(ai);
+        // 캐릭터 생성
+        {
+            ai = Instantiate(_aiList[characterIndex], transform);
+            ai.IsPlayer = true;
+            ai.GetComponent<BehaviorParameters>().BehaviorType = BehaviorType.HeuristicOnly;
+            CameraManager.Instance.SetFollow(ai.transform);
+
+            _aiDictionary[index++] = ai;
+            _currentAiList.Add(ai);
+        }
+
         ai = null;
 
         for (int i = 0; i < aiList.Count; i++) {
@@ -67,7 +72,7 @@ public class StageManager : MonoBehaviour {
             if (ai == _aiDictionary[i]) {
                 _aiDictionary.Remove(i);
 
-                if (_currentAiList[_index] == ai)
+                if (_currentAiList[_index] == ai && _currentAiList.Count > 1)
                     SetFollow();
 
                 _currentAiList.Remove(ai);
