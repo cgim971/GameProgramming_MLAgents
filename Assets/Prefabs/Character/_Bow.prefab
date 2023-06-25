@@ -159,7 +159,7 @@ MonoBehaviour:
   MaxStep: 5000
   _targetList: []
   _moveSpeed: 5
-  _attackRange: 5
+  _attackRange: 6
   _goodRange: 5
   IsKnockback: 0
   IsPlayer: 0

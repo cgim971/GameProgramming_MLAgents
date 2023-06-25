@@ -41,7 +41,7 @@ public class AI : Agent, IDamage {
     }
 
     public override void OnEpisodeBegin() {
-        // transform.position = (Vector2)_stage.transform.position + new Vector2(Random.Range(-10f, 10f), Random.Range(-5f, 5f));
+        //transform.position += _stage.transform.position;
     }
 
     public override void CollectObservations(VectorSensor sensor) {

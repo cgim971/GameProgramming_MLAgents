@@ -13,23 +13,20 @@ public class StageManager : MonoBehaviour {
     [SerializeField] private Dictionary<int, AI> _aiDictionary = new Dictionary<int, AI>();
     private List<AI> _currentAiList = new List<AI>();
 
+    [SerializeField] private List<int> _aiTestList;
+
     public bool IsDie = false;
 
     [SerializeField] private List<Transform> _spawnPointList = new List<Transform>();
-    [SerializeField] private List<Transform> _currentSpawnPointList = new List<Transform>();
 
     private void Awake() {
         if (_instance == null)
             _instance = this;
+    }
 
-        _currentSpawnPointList = _spawnPointList;
-
+    private void Start() {
         // 게임매니저로 옮길 부분
-        List<int> aiList = new List<int>();
-        aiList.Add(1);
-        aiList.Add(2);
-        aiList.Add(1);
-        Init(0, aiList);
+        Init(0, _aiTestList);
     }
 
     public void Init(int characterIndex, List<int> aiList) {
@@ -92,6 +89,7 @@ public class StageManager : MonoBehaviour {
 
         if (_aiDictionary.Count == 1) {
             // 게임 종료
+            UIManager.Instance.ShowPanel();
         }
     }
 
@@ -121,9 +119,9 @@ public class StageManager : MonoBehaviour {
     }
 
     public Vector2 GetRandomSpawnPoint() {
-        int index = Random.Range(0, _currentSpawnPointList.Count - 1);
-        Vector2 pos = _currentSpawnPointList[index].position;
-        _currentSpawnPointList.RemoveAt(index);
+        int index = Random.Range(0, _spawnPointList.Count - 1);
+        Vector2 pos = _spawnPointList[index].position;
+        _spawnPointList.RemoveAt(index);
         return pos;
     }
 }
