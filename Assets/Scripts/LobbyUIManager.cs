@@ -31,15 +31,17 @@ public class LobbyUIManager : MonoBehaviour {
         AISliderList[0].onValueChanged.AddListener((value) => ChangeLongSwordAI(value));
         AISliderList[1].onValueChanged.AddListener((value) => ChangeBowAI(value));
         AISliderList[2].onValueChanged.AddListener((value) => ChangeAxeAI(value));
+        AISliderList[3].onValueChanged.AddListener((value) => ChangeMagicAI(value));
 
         AIList.Clear();
+        AIList.Add(0);
         AIList.Add(0);
         AIList.Add(0);
         AIList.Add(0);
     }
 
     public void ToMainBtn() {
-        int cnt = AIList[0] + AIList[1] + AIList[2];
+        int cnt = AIList[0] + AIList[1] + AIList[2] + AIList[3];
         if (cnt <= 0 || cnt > 7) {
             return;
         }
@@ -59,6 +61,9 @@ public class LobbyUIManager : MonoBehaviour {
             case 2:
                 text += "Axe";
                 break;
+            case 3:
+                text += "Magic";
+                break;
         }
 
         PlayerText.SetText(text);
@@ -76,5 +81,10 @@ public class LobbyUIManager : MonoBehaviour {
     public void ChangeAxeAI(float value) {
         AITextList[2].SetText("Axe: " + (int)value);
         AIList[2] = (int)value;
+    }
+
+    public void ChangeMagicAI(float value) {
+        AITextList[3].SetText("Magic: " + (int)value);
+        AIList[3] = (int)value;
     }
 }

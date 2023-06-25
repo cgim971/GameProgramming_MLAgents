@@ -32,6 +32,6 @@ public class BowAI : AI {
         Vector2 dir = (pos - (Vector2)transform.position).normalized;
         newArrow.Init(this, transform.position, dir);
 
-        StartCoroutine(AttackDelay(0.4f));
+        StartCoroutine(AttackDelay(0.3f));
     }
 }

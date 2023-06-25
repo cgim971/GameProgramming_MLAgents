@@ -536,6 +536,7 @@ MonoBehaviour:
   - {fileID: 7019561860083747107, guid: dae7639acfa38e24989f8a67da8d0866, type: 3}
   - {fileID: 2547038052515973062, guid: c4fb793a1fd6138428129a05ddd5b07c, type: 3}
   - {fileID: 3119719387623282900, guid: 12fa49576ba724c45b68515c40ae5d39, type: 3}
+  - {fileID: 7149116640349110545, guid: 4a9e03af68f98f34aa2f3baab279b823, type: 3}
   IsDie: 0
   _spawnPointList:
   - {fileID: 1443041255}
