@@ -13,8 +13,6 @@ public class StageManager : MonoBehaviour {
     [SerializeField] private Dictionary<int, AI> _aiDictionary = new Dictionary<int, AI>();
     private List<AI> _currentAiList = new List<AI>();
 
-    [SerializeField] private List<int> _aiTestList;
-
     public bool IsDie = false;
 
     [SerializeField] private List<Transform> _spawnPointList = new List<Transform>();
@@ -22,11 +20,6 @@ public class StageManager : MonoBehaviour {
     private void Awake() {
         if (_instance == null)
             _instance = this;
-    }
-
-    private void Start() {
-        // 게임매니저로 옮길 부분
-        Init(0, _aiTestList);
     }
 
     public void Init(int characterIndex, List<int> aiList) {
@@ -89,7 +82,7 @@ public class StageManager : MonoBehaviour {
 
         if (_aiDictionary.Count == 1) {
             // 게임 종료
-            UIManager.Instance.ShowPanel();
+            UIManager.Instance.ShowPanel(IsDie);
         }
     }
 

@@ -21,7 +21,6 @@ public class CameraManager : MonoBehaviour {
 
     private void Update() {
         if (_shakeTimer > 0f) {
-            // 흔들림 효과 적용
             _shakeTimer -= Time.deltaTime;
             if (_shakeTimer <= 0f) {
                 _vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;

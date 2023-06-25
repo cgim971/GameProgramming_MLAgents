@@ -536,7 +536,6 @@ MonoBehaviour:
   - {fileID: 7019561860083747107, guid: dae7639acfa38e24989f8a67da8d0866, type: 3}
   - {fileID: 2547038052515973062, guid: c4fb793a1fd6138428129a05ddd5b07c, type: 3}
   - {fileID: 3119719387623282900, guid: 12fa49576ba724c45b68515c40ae5d39, type: 3}
-  _aiTestList: 020000000200000002000000
   IsDie: 0
   _spawnPointList:
   - {fileID: 1443041255}
@@ -893,6 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panel: {fileID: 899033257}
   LobbyBtn: {fileID: 878755857}
+  Text: {fileID: 32271929}
 --- !u!1 &939585034
 GameObject:
   m_ObjectHideFlags: 0

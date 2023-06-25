@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour {
 
     public RectTransform Panel;
     public Button LobbyBtn;
+    public TMP_Text Text;
 
 
     private void Awake() {
@@ -24,8 +26,15 @@ public class UIManager : MonoBehaviour {
         HidePanel();
     }
 
-    public void ShowPanel() {
+    public void ShowPanel(bool isDie) {
         Panel.gameObject.SetActive(true);
+
+        if (isDie) {
+            Text.SetText("Á×¾ú´Ù ¤»");
+        }
+        else {
+            Text.SetText("ÀÌ°å³ß ¤»");
+        }
     }
 
     public void HidePanel() {
