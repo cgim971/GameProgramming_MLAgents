@@ -42,7 +42,7 @@ public class LobbyUIManager : MonoBehaviour {
 
     public void ToMainBtn() {
         int cnt = AIList[0] + AIList[1] + AIList[2] + AIList[3];
-        if (cnt <= 0 || cnt > 7) {
+        if (cnt <= 0 || cnt > 8) {
             return;
         }
 

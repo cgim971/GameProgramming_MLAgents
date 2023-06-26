@@ -41,7 +41,8 @@ public class AI : Agent, IDamage {
     }
 
     public override void OnEpisodeBegin() {
-        //transform.position += _stage.transform.position;
+        // 테스트용
+        //transform.position = _stage.transform.position + new Vector3(Random.Range(-20, 22), Random.Range(-18, 8), 0);
     }
 
     public override void CollectObservations(VectorSensor sensor) {
@@ -64,16 +65,6 @@ public class AI : Agent, IDamage {
         Vector2 direction = Vector2.zero;
         float angle = 0f;
         if (IsPlayer) {
-            Vector2 mousePosition = _mainCam.ScreenToWorldPoint(Input.mousePosition);
-            direction = (mousePosition - (Vector2)transform.position).normalized;
-            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            _modelTs.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-
-
-            if (Input.GetMouseButtonDown(0)) {
-                CameraManager.Instance.ShakeCamera(0.1f, 0.3f);
-                Attack(mousePosition);
-            }
             return;
         }
 
@@ -95,16 +86,44 @@ public class AI : Agent, IDamage {
             }
         }
 
-        float distanceToTarget = Vector2.Distance(transform.position, _target.transform.position);
-        float abs = Mathf.Abs(distanceToTarget - _goodRange);
-        if (abs < 0.5f) {
-            AddReward(50f);
-            // 이동 훈련할 때만 사용
-            // EndEpisode();
+
+        //float distanceToTarget = Vector2.Distance(transform.position, _target.transform.position);
+        //// 근거리 훈련
+        //if (distanceToTarget < 1f) {
+        //    AddReward(2f);
+        //    EndEpisode();
+        //    return;
+        //}
+
+        // 원거리 훈련
+        //float abs = Mathf.Abs(distanceToTarget - _goodRange);
+        //if (abs < 0.5f) {
+        //    AddReward(50f);
+        //    //EndEpisode();
+        //}
+        //else {
+        //    AddReward(-abs * 0.01f);
+        //}
+    }
+
+    private void Update() {
+        if (!IsPlayer)
+            return;
+
+        Vector2 direction = Vector2.zero;
+        float angle = 0f;
+
+        Vector2 mousePosition = _mainCam.ScreenToWorldPoint(Input.mousePosition);
+        direction = (mousePosition - (Vector2)transform.position).normalized;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        _modelTs.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+
+        if (Input.GetMouseButtonDown(0)) {
+            CameraManager.Instance.ShakeCamera(0.1f, 0.3f);
+            Attack(mousePosition);
         }
-        else {
-            AddReward(-abs * 0.01f);
-        }
+
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
